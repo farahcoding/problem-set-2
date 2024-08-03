@@ -19,7 +19,29 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.model_selection import StratifiedKFold as KFold_strat
 from sklearn.linear_model import LogisticRegression as lr
 
+#would delete after added to main
+import preprocessing
 
 # Your code here
+#def logRegression(df):
+    #Read in `df_arrests`- 
+df_arrests= preprocessing.getArrestDF()
 
+    # Separating the target variable
+#X = df_arrests #.values[:, 1:15]
+#Y = df_arrests #.values[:, 1:15]
 
+X=df_arrests[['num_fel_arrests_last_year','current_charge_felony']]
+Y=df_arrests[['y']]
+
+    # Splitting the dataset into train and test
+X_df_arrests_train, X_df_arrests_test, y_df_arrests_train, y_df_arrests_test = train_test_split(
+        X, Y, test_size=0.3, shuffle=True, stratify=Y)
+    
+features = ['num_fel_arrests_last_year','current_charge_felony']
+
+#print(X.head())
+#print(Y.head())
+
+#print(X_df_arrests_train.head())
+#print(X_df_arrests_test.head())

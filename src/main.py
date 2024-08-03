@@ -14,9 +14,11 @@ import calibration_plot
 def main():
 
     # PART 1: Instanciate etl, saving the two datasets in `./data/`
-    etl.getData()
+    #etl.getData()
+    
     # PART 2: Call functions/instanciate objects from preprocessing
-    preprocessing.getArrestDF()
+    df_arrests= preprocessing.getArrestDF()
+
     # PART 3: Call functions/instanciate objects from logistic_regression
 
     # PART 4: Call functions/instanciate objects from decision_tree
