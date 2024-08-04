@@ -7,7 +7,7 @@ import etl
 import preprocessing
 import logistic_regression
 import decision_tree
-#import calibration_plot
+import calibration_plot
 
 
 # Call functions / instanciate objects from the .py files
@@ -20,13 +20,13 @@ def main():
     df_arrests= preprocessing.getArrestDF()
 
     # PART 3: Call functions/instanciate objects from logistic_regression
-    x,y,z =logistic_regression.logRegression(df_arrests)    
+    x,y,z,n =logistic_regression.logRegression(df_arrests)    
 
     # PART 4: Call functions/instanciate objects from decision_tree
     decision_tree.decisionTree(x, y,z)
 
     # PART 5: Call functions/instanciate objects from calibration_plot
-
+    #calibration_plot.
 
 if __name__ == "__main__":
     main()

@@ -62,13 +62,14 @@ def logRegression(df):
 
 
     print("\nBest Hyperparameters:", gs_cv.best_params_)
-    print("Best Score:", gs_cv.best_score_)
+    print("it was the least value.\n")
+    #print("Best Score:", gs_cv.best_score_)
 
     #new_model = GridSearchCV(**gs_cv.best_params_)
     #new_model.predict(X_df_arrests_test, y_df_arrests_test)
 
-    X_df_arrests_test['pred_lr'] = gs_cv.best_estimator_.predict(X_df_arrests_test)
+    final_df_arrests_test = X_df_arrests_test   
 
-    #print(X_df_arrests_test.head(10))
+    final_df_arrests_test['pred_lr'] = gs_cv.best_estimator_.predict(X_df_arrests_test)
 
-    return (X_df_arrests_test,X_df_arrests_train, y_df_arrests_train)
+    return (X_df_arrests_test[['num_fel_arrests_last_year','current_charge_felony']],X_df_arrests_train, y_df_arrests_train, final_df_arrests_test)

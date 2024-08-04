@@ -19,8 +19,31 @@ from sklearn.tree import DecisionTreeClassifier as DTC
 
 
 def decisionTree(df1, df2,df3):
-    #Create a parameter grid called `param_grid_dt` containing three values for tree depth. (Note C has to be greater than zero) 
-    param_grid_dt = {'depth': [1, 3, 5], 'kernel': ['linear']}
+    X_df_arrests_test = df1
+    X_df_arrests_train = df2
+    y_df_arrests_train = df3
 
-    #- Initialize the Decision Tree model. Assign this to a variable called `dt_model`. 
-    #dt_model = decisionTree()
+    #Create a parameter grid called `param_grid_dt` containing three values for tree depth. (Note C has to be greater than zero) 
+    param_grid_dt = {'max_depth': [1, 3, 5], 
+                     'min_samples_split':range(1,10),
+                     'min_samples_leaf':range(1,5),
+                     'criterion': ['gini','entropy']}
+
+    #Initialize the Decision Tree model. Assign this to a variable called `dt_model`. 
+    dt_model = DTC().fit(X_df_arrests_train, y_df_arrests_train)
+
+    #Initialize the GridSearchCV using the logistic regression model you initialized and parameter grid you created. Do 5 fold crossvalidation. Assign this to a variable called `gs_cv_dt`. 
+    gs_cv_dt = GridSearchCV(estimator=dt_model, param_grid=param_grid_dt, cv=5)
+
+    #Run the model 
+    gs_cv_dt.fit(X_df_arrests_train, y_df_arrests_train)
+
+    print("\nBest Hyperparameters:", gs_cv_dt.best_params_)
+    print("it was the least value.\n")
+    #print("Best Score:", gs_cv_dt.best_score_)
+
+    X_df_arrests_test['pred_dt'] = gs_cv_dt.best_estimator_.predict(X_df_arrests_test)
+
+    #print(X_df_arrests_test.head(10))
+
+    return (X_df_arrests_test)
