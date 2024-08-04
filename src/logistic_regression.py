@@ -30,7 +30,7 @@ def logRegression(df):
     X=df[['num_fel_arrests_last_year','current_charge_felony']]
     Y=df[['y']]
 
-        # Splitting the dataset into train and test
+    # Splitting the dataset into train and test
     X_df_arrests_train, X_df_arrests_test, y_df_arrests_train, y_df_arrests_test = train_test_split(
             X, Y, test_size=0.3, shuffle=True, stratify=Y)
         
@@ -42,8 +42,12 @@ def logRegression(df):
     #print(X_df_arrests_train.head())
     #print(X_df_arrests_test.head())
 
-    param_grid = {'C': [1, 10, 100], 'kernel': ['linear']}
-                  
+    #param_grid = {'C': [1, 10, 100], 'kernel': ['linear']}
+    param_grid = {'C': [1, 10, 100],
+	              'penalty': ['l1', 'l2'],
+	              'solver': ['liblinear', 'saga']}
+ 
+
     #Initialize the Logistic Regression model with a variable called `lr_model` 
     #lr_model = LinearRegression().fit(X_df_arrests_train, y_df_arrests_train)
     lr_model = lr()
@@ -54,9 +58,17 @@ def logRegression(df):
 
 
     #Run the model 
-    gs_cv.fit(X_df_arrests_test, y_df_arrests_test)
+    gs_cv.fit(X_df_arrests_train, y_df_arrests_train)
 
-    print("Best Hyperparameters:", gs_cv.best_params_)
+
+    print("\nBest Hyperparameters:", gs_cv.best_params_)
     print("Best Score:", gs_cv.best_score_)
 
-    return (X_df_arrests_test, y_df_arrests_test)
+    #new_model = GridSearchCV(**gs_cv.best_params_)
+    #new_model.predict(X_df_arrests_test, y_df_arrests_test)
+
+    X_df_arrests_test['predict'] = gs_cv.best_estimator_.predict(X_df_arrests_test)
+
+    #print(X_df_arrests_test.head(10))
+
+    return (X_df_arrests_test,X_df_arrests_train, y_df_arrests_train)

@@ -50,7 +50,7 @@ df_arrests['sum'] = df_arrests['current_charge_felony']+df_arrests['0']+df_arres
 df_arrests['-sum'] = df_arrests['current_charge_felony']+df_arrests['-0']+df_arrests['-365']
 
 df_arrests['y'] = np.where(df_arrests['sum'] ==3 ,1,0)
-print(df_arrests.head(20))
+#print(df_arrests.head(20))
 totalarrest = len(df_arrests)
 #print(totalarrest)
 

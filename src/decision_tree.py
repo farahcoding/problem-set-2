@@ -18,9 +18,9 @@ from sklearn.model_selection import StratifiedKFold as KFold_strat
 from sklearn.tree import DecisionTreeClassifier as DTC
 
 
-def decisionTree(df):
+def decisionTree(df1, df2,df3):
     #Create a parameter grid called `param_grid_dt` containing three values for tree depth. (Note C has to be greater than zero) 
     param_grid_dt = {'depth': [1, 3, 5], 'kernel': ['linear']}
 
     #- Initialize the Decision Tree model. Assign this to a variable called `dt_model`. 
-    dt_model = decisionTree()
+    #dt_model = decisionTree()
