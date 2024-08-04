@@ -18,8 +18,6 @@ import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.model_selection import StratifiedKFold as KFold_strat
 from sklearn.linear_model import LogisticRegression as lr
-from sklearn.linear_model import LinearRegression
-
 
 # Your code here
 def logRegression(df):
@@ -48,7 +46,7 @@ def logRegression(df):
                   
     #Initialize the Logistic Regression model with a variable called `lr_model` 
     #lr_model = LinearRegression().fit(X_df_arrests_train, y_df_arrests_train)
-    lr_model = LinearRegression().fit(X_df_arrests_train, y_df_arrests_train)
+    lr_model = lr()
 
     #Initialize the GridSearchCV using the logistic regression model you initialized and parameter grid you created. Do 5 fold crossvalidation. Assign this to a variable called `gs_cv` 
     #gs_cv = GridSearchCV(estimator=lr_model, param_grid=param_grid, scoring='accuracy', cv=5, n_jobs=-1)
@@ -61,4 +59,4 @@ def logRegression(df):
     print("Best Hyperparameters:", gs_cv.best_params_)
     print("Best Score:", gs_cv.best_score_)
 
-    #return (X_df_arrests_test, y)
+    return (X_df_arrests_test, y_df_arrests_test)

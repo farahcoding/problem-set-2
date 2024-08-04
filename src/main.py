@@ -20,10 +20,10 @@ def main():
     df_arrests= preprocessing.getArrestDF()
 
     # PART 3: Call functions/instanciate objects from logistic_regression
-    logistic_regression.logRegression(df_arrests)    
+    X_df_arrests_test, y_df_arrests_test= logistic_regression.logRegression(df_arrests)    
 
     # PART 4: Call functions/instanciate objects from decision_tree
-   # decision_tree.decisionTree(df_arrests)
+    decision_tree.decisionTree(X_df_arrests_test, y_df_arrests_test)
 
     # PART 5: Call functions/instanciate objects from calibration_plot
 
