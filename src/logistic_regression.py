@@ -67,7 +67,7 @@ def logRegression(df):
     #new_model = GridSearchCV(**gs_cv.best_params_)
     #new_model.predict(X_df_arrests_test, y_df_arrests_test)
 
-    X_df_arrests_test['predict'] = gs_cv.best_estimator_.predict(X_df_arrests_test)
+    X_df_arrests_test['pred_lr'] = gs_cv.best_estimator_.predict(X_df_arrests_test)
 
     #print(X_df_arrests_test.head(10))
 
