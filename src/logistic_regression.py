@@ -21,6 +21,34 @@ from sklearn.linear_model import LogisticRegression as lr
 
 # Your code here
 def logRegression(df):
+    features = ['num_fel_arrests_last_year','y']
+
+    df_arrests_train, df_arrests_test, label_train, label_test = train_test_split(
+            df[features],df.current_charge_felony , test_size=0.3, shuffle=True)
+    
+    param_grid = {'C': [0.1, 1, 10],
+	              'penalty': ['l1', 'l2'],
+	              'solver': ['liblinear', 'saga']}
+    
+    lr_model = lr()
+
+    gs_cv = GridSearchCV(estimator=lr_model, param_grid=param_grid, cv=5)
+
+    gs_cv.fit(df_arrests_train, label_train)
+
+
+    print("\nBest Hyperparameters:", gs_cv.best_params_)
+
+    #initial_df_arrests_test = df_arrests_test
+    #print(gs_cv.best_estimator_.predict(df_arrests_test))
+    df_arrests_test['pred_lr'] = gs_cv.best_estimator_.predict(df_arrests_test)
+
+    #print(initial_df_arrests_test.head(10))    
+    
+    return (df_arrests_test[features],df_arrests_train, label_test,label_train, df_arrests_test)
+
+"""
+def logRegression(df):
     #Read in `df_arrests`- 
 
     # Separating the target variable
@@ -73,3 +101,4 @@ def logRegression(df):
     final_df_arrests_test['pred_lr'] = gs_cv.best_estimator_.predict(X_df_arrests_test)
 
     return (X_df_arrests_test[['num_fel_arrests_last_year','current_charge_felony']],X_df_arrests_train, y_df_arrests_train, final_df_arrests_test)
+"""    

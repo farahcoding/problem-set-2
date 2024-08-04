@@ -20,13 +20,14 @@ def main():
     df_arrests= preprocessing.getArrestDF()
 
     # PART 3: Call functions/instanciate objects from logistic_regression
-    x,y,z,n =logistic_regression.logRegression(df_arrests)    
+    df_arrests_test,df_arrests_train, label_test,label_train, dfpred_lr =logistic_regression.logRegression(df_arrests)    
 
     # PART 4: Call functions/instanciate objects from decision_tree
-    decision_tree.decisionTree(x, y,z)
+    dfpred_dt=decision_tree.decisionTree(df_arrests_test,df_arrests_train, label_train)
 
     # PART 5: Call functions/instanciate objects from calibration_plot
-    #calibration_plot.
+    calibration_plot.calibration_plot(label_test, dfpred_lr.pred_lr ,5)
+    calibration_plot.calibration_plot(label_test, dfpred_dt.pred_dt ,5)
 
 if __name__ == "__main__":
     main()
